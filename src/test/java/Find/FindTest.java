@@ -15,7 +15,7 @@ public class FindTest {
 
     File directoryDefault = new File(new File("").getAbsolutePath());
     File file = new File("NotADirectory");
-    File file1 = new File("Directory1");
+    File file1 = new File(directoryDefault + "\\Directory1");
     File file2 = new File(file1 + "\\Directory2");
     File file4 = new File("Hello");
 
@@ -43,12 +43,12 @@ public class FindTest {
                         List.of("PepeTheFrog", "Plan.txt", "Meow", "Hehe", "NotHehe.txt"), true));
     }
 
-//    @Test
-//    void findFiles() throws Exception {
-//        finder.checkingFiles(file1, List.of("Meow", "Hehe"), true);
-//        assertEquals("File path Meow: " + nameFile1.getAbsolutePath() + "\r\n" +
-//                        "File path Hehe: " + nameFile2.getAbsolutePath(), outputStreamCaptor.toString().trim());
-//    }
+    @Test
+    void findFiles() throws Exception {
+        finder.checkingFiles(file1, List.of("Meow", "Hehe"), true);
+        assertEquals("File path Meow: " + nameFile1.getAbsolutePath() + "\r\n" +
+                        "File path Hehe: " + nameFile2.getAbsolutePath(), outputStreamCaptor.toString().trim());
+    }
 
     @Test
     void fileNotFound() throws Exception {
@@ -65,8 +65,7 @@ public class FindTest {
 
 //    @Test
 //    void fileFromAnotherDirectory() throws Exception {
-//        finder.checkingFiles(file2,
-//                    List.of("Hehe", "NotHehe.txt"), false);
+//        finder.checkingFiles(file2, List.of("Hehe", "NotHehe.txt"), false);
 //        assertEquals("File path Hehe: " + nameFile2.getAbsolutePath() + "\r\n" +
 //                        "File NotHehe.txt not found",
 //                outputStreamCaptor.toString().trim());

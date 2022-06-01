@@ -44,7 +44,7 @@ public class FindTest {
     }
 
     @Test
-    void findFiles() throws Exception {
+    void findFiles() throws FileNotFoundException {
         finder.checkingFiles(file1, List.of("Meow", "Hehe"), true);
         assertEquals("File path Meow: " + nameFile1.getAbsolutePath() + "\r\n" +
                         "File path Hehe: " + nameFile2.getAbsolutePath(), outputStreamCaptor.toString().trim());

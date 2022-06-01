@@ -34,7 +34,7 @@ public class Find {
 
     //Вывод ненайдённых файлов
     public void checkingFiles(File directory, List<String> fileNames, boolean subdirectory) throws FileNotFoundException {
-        ArrayList<File> list = new ArrayList<File>();
+        ArrayList<File> list = new ArrayList<>();
         fileSearch(directory, fileNames, list, subdirectory);
         comparison(list, fileNames);
     }
@@ -49,11 +49,5 @@ public class Find {
             if (hashMap.containsKey(str)) System.out.println("File path " + str + ": " + hashMap.get(str));
             else System.out.println("File " + str + " not found");
         }
-    }
-
-    public static void main(String[] args) throws FileNotFoundException {
-        File file1 = new File("Directory1");
-        Find finder = new Find();
-        finder.checkingFiles(file1, List.of("Meow", "Plan.txt", "Hehe"), false);
     }
 }

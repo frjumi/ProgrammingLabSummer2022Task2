@@ -2,11 +2,12 @@ package Find;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
 public class Find {
-    public void fileSearch(File directory, ArrayList<String> fileNames, boolean subdirectory) throws FileNotFoundException {
+    public void fileSearch(File directory, List<String> fileNames, ArrayList<File> list, boolean subdirectory) throws FileNotFoundException {
 
         if (!directory.exists()) throw new FileNotFoundException("This directory does not exist");
         if (!directory.isDirectory()) throw new IllegalArgumentException("There is no such directory");
@@ -19,14 +20,12 @@ public class Find {
                 //Если разрешён поиск в поддиректориях
                 if (subdirectory) {
                     if (name.isDirectory()) {
-                        fileSearch(name, fileNames, subdirectory);
+                        fileSearch(name, fileNames, list, subdirectory);
                     }
                 }
                 //Если файл - File и есть в списке, то выводим в консоль
                 if (name.isFile() && fileNames.contains(name.getName())) {
-                    //System.out.println("Путь файла " + name.getName() + ": " + name.getAbsolutePath());
-                    returnName(name);
-                    fileNames.remove(name.getName());
+                    list.add(name);
                 }
 
             }
@@ -35,17 +34,26 @@ public class Find {
 
     //Вывод ненайдённых файлов
     public void checkingFiles(File directory, List<String> fileNames, boolean subdirectory) throws FileNotFoundException {
-        ArrayList<String> list = new ArrayList<>(fileNames);
-        fileSearch(directory, list, subdirectory);
-        for (String str: list) {
-            System.out.println("Файл " + str + " не найден.");
+        ArrayList<File> list = new ArrayList<File>();
+        fileSearch(directory, fileNames, list, subdirectory);
+        comparison(list, fileNames);
+    }
+
+    private void comparison(ArrayList<File> new_list, List<String> list) {
+        HashMap<String, String> hashMap = new HashMap<>();
+        for (File file: new_list) {
+            hashMap.put(file.getName(), file.getAbsolutePath());
+        }
+
+        for (String str : list) {
+            if (hashMap.containsKey(str)) System.out.println("File path " + str + ": " + hashMap.get(str));
+            else System.out.println("File " + str + " not found");
         }
     }
 
-    private void returnName(File file){
-        String name = file.getName();
-        System.out.println(name);
+    public static void main(String[] args) throws FileNotFoundException {
+        File file1 = new File("Directory1");
+        Find finder = new Find();
+        finder.checkingFiles(file1, List.of("Meow", "Plan.txt", "Hehe"), false);
     }
-
-
 }

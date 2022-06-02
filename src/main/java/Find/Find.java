@@ -44,7 +44,6 @@ public class Find {
         for (File file: new_list) {
             hashMap.put(file.getName(), file.getAbsolutePath());
         }
-
         for (String str : list) {
             if (hashMap.containsKey(str)) System.out.println("File path " + str + ": " + hashMap.get(str));
             else System.out.println("File " + str + " not found");

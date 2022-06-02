@@ -46,7 +46,7 @@ public class FindTest {
     @Test
     void findFiles() throws Exception {
         finder.checkingFiles(directoryDefault, List.of("Meow", "Hehe"), true);
-        assertEquals("File path Meow: " + nameFile1.getAbsolutePath() + "\r\n" +
+        assertEquals("File path Meow: " + nameFile1.getAbsolutePath() + System.lineSeparator() +
                         "File path Hehe: " + nameFile2.getAbsolutePath(),
                 outputStreamCaptor.toString().trim());
     }
@@ -67,7 +67,7 @@ public class FindTest {
     @Test
     void fileFromAnotherDirectory() throws Exception {
         finder.checkingFiles(file2, List.of("Hehe", "NotHehe.txt"), false);
-        assertEquals("File path Hehe: " + nameFile2.getAbsolutePath() + "\r\n" +
+        assertEquals("File path Hehe: " + nameFile2.getAbsolutePath() + System.lineSeparator() +
                         "File NotHehe.txt not found",
                 outputStreamCaptor.toString().trim());
     }

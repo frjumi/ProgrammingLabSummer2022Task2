@@ -15,8 +15,8 @@ public class FindTest {
 
     File directoryDefault = new File(new File("").getAbsolutePath());
     File file = new File("NotADirectory");
-    File file1 = new File(directoryDefault + "\\Directory1");
-    File file2 = new File(file1 + "\\Directory2");
+    File file1 = new File(directoryDefault + "/Directory1");
+    File file2 = new File(file1 + "/Directory2");
     File file4 = new File("Hello");
 
     File nameFile1 = new File(file1, "Meow");

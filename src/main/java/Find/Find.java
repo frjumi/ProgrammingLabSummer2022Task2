@@ -7,8 +7,9 @@ import java.util.List;
 
 
 public class Find {
-    public void fileSearch(File directory, List<String> fileNames, ArrayList<File> list, boolean subdirectory) throws FileNotFoundException {
+    ArrayList<File> list = new ArrayList<>();
 
+    public void fileSearch(File directory, List<String> fileNames, boolean subdirectory) throws FileNotFoundException {
         if (!directory.exists()) throw new FileNotFoundException("This directory does not exist");
         if (!directory.isDirectory()) throw new IllegalArgumentException("There is no such directory");
 
@@ -20,10 +21,10 @@ public class Find {
                 //Если разрешён поиск в поддиректориях
                 if (subdirectory) {
                     if (name.isDirectory()) {
-                        fileSearch(name, fileNames, list, subdirectory);
+                        fileSearch(name, fileNames, subdirectory);
                     }
                 }
-                //Если файл - File и есть в списке, то выводим в консоль
+                //Если файл - File и есть в списке, то добавляем в список
                 if (name.isFile() && fileNames.contains(name.getName())) {
                     list.add(name);
                 }
@@ -32,18 +33,19 @@ public class Find {
         }
     }
 
-    //Вывод ненайдённых файлов
+    //Окончательный вывод
     public void checkingFiles(File directory, List<String> fileNames, boolean subdirectory) throws FileNotFoundException {
-        ArrayList<File> list = new ArrayList<>();
-        fileSearch(directory, fileNames, list, subdirectory);
+        fileSearch(directory, fileNames, subdirectory);
         comparison(list, fileNames);
     }
 
-    private void comparison(ArrayList<File> new_list, List<String> list) {
+    //Сравнение списков
+    private void comparison(ArrayList<File> newList, List<String> list) {
         HashMap<String, String> hashMap = new HashMap<>();
-        for (File file: new_list) {
+        for (File file: newList) {
             hashMap.put(file.getName(), file.getAbsolutePath());
         }
+        //Если файл из основного списка есть в new_list, тогда он найден, иначе нет.
         for (String str : list) {
             if (hashMap.containsKey(str)) System.out.println("File path " + str + ": " + hashMap.get(str));
             else System.out.println("File " + str + " not found");
